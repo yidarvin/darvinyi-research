@@ -875,13 +875,14 @@
                     aria-expanded="false"
                     aria-controls="body-federated-npj">
               <div class="accordion-header-left">
-                <p class="paper-meta">federated learning · npj digital medicine · 2021</p>
-                <p class="paper-title">Handling Missing MRI Sequences in Deep Learning Segmentation: Multi-Institutional Federated Learning</p>
+                <p class="paper-meta">missing-data robustness · npj digital medicine · 2021</p>
+                <p class="paper-title">Handling Missing MRI Sequences in Deep Learning Segmentation of Brain Metastases: A Multicenter Study</p>
                 <p class="paper-authors">E. Grøvik, <strong>D. Yi</strong>, M. Iv, E. Tong, L.B. Nilsen, A. Latysheva, C. Saxhaug, A. Helland, K.E. Emblem, G. Zaharchuk, D.L. Rubin</p>
               </div>
               <div class="accordion-header-right">
                 <div class="badge-stack">
-                  <span class="badge badge-high">~500 citations</span>
+                  <span class="badge badge-high">multicenter</span>
+                  <span class="badge">AUC 0.99</span>
                 </div>
                 <svg class="chevron" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                   <path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -890,7 +891,7 @@
             </button>
             <div class="accordion-body" id="body-federated-npj" hidden>
               <p class="contribution">
-                Full demonstration that distributing <strong>model weights across institutions</strong> — without any patient data transfer — achieves performance near centralized training on brain tumor segmentation. Foundational result for <strong>privacy-preserving medical AI</strong> and a key reference in the federated learning literature.
+                A <strong>multi-institutional clinical validation</strong> of deep-learning brain-metastasis segmentation that stays robust when MRI pulse sequences are missing at inference. Using <strong>input-level dropout</strong> — training across subsets of the four input sequences — the model matches a full-input DeepLab V3 network, both reaching <strong>AUC ≈ 0.99</strong> for lesion detection across sites. A practical result for deploying medical AI in real hospitals, where complete, standardized MRI protocols are rarely available.
               </p>
               <!-- FIGURE: federated-npj -->
               <img src="/figures/federated-npj-fig.png"
