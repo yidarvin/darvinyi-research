@@ -1,101 +1,40 @@
-# Figures Needed — darvinyi-research
+# Figures — darvinyi-research
 
-Papers below had no auto-fetchable figure. Save the image and update index.html.
+All paper figures are resolved and stored locally in `figures/` (referenced as `/figures/{slug}-fig.png`). No external image hosts are used. This file records where each figure came from.
 
-## How to add a figure
-1. Save image to `/public/figures/{slug}-fig.png` (or `.jpg`, `.webp`)
-2. In `index.html`, find the comment `<!-- FIGURE: {slug} -->`
-3. Replace the `.figure-placeholder` div with:
-   ```html
-   <img src="/figures/{slug}-fig.png" class="paper-figure" alt="[description]">
-   ```
+## How to replace a figure
+1. Save image to `figures/{slug}-fig.png` (or `.jpg`, `.webp`) — repo root, **not** `public/`.
+2. In `index.html`, find `<!-- FIGURE: {slug} -->` and point its `<img class="paper-figure">` at `/figures/{slug}-fig.png`.
 
 ---
 
-## Successfully retrieved figures
+## Retrieved figures (16)
 
-| Slug | Source URL |
-|---|---|
-| `upbench` | https://arxiv.org/html/2511.12306/figures/headline.png |
-| `mammogram-dream` | https://cdn.ncbi.nlm.nih.gov/pmc/blobs/bfb3/7052735/d9ba5ec55bdf/jamanetwopen-e200265-g003.jpg |
-| `brainmetshare` | https://www.frontiersin.org/files/Articles/1056068/xml-images/fninf-16-1056068-g0006.webp |
-| `chest-radiograph` | https://cdn.ncbi.nlm.nih.gov/pmc/blobs/0fd1/6358056/776c2c2dd976/radiol.2018181422.fig2.jpg |
-| `jamia-distributed` | https://cdn.ncbi.nlm.nih.gov/pmc/blobs/6912/5977656/30ec5cd8399c/2730723f1.jpg |
+| Slug | Figure | Source |
+|---|---|---|
+| `upbench` | task completion-rate bar chart | arXiv 2511.12306 (headline figure) |
+| `mammogram-dream` | ROC curves, AI vs radiologist benchmarks | JAMA Network Open, PMC7052735 |
+| `brainmetshare` | brain-metastasis segmentation overlays | Frontiers Neuroinformatics 2022 |
+| `ct-org` | tri-planar CT + 3D render, organ segmentation (Fig 2) | Nature Sci Data s41597-020-00715-8 |
+| `chest-radiograph` | ROC curves by training-set size | Radiology 2019, PMC6358056 |
+| `periorbital-seg` | periorbital segmentation grid (CFD + Celeb) | ScienceDirect S2666914525000557 (fig CDN `ars.els-cdn.com`) |
+| `intraop-guidance` | AI intraoperative-guidance workflow (Fig 1) | JAMA Ophthalmology 2021, PMC8855235 |
+| `i-oda` | 6-modality dataset sample grid (Fig 3) | arXiv 2104.02609v1 (PDF render) |
+| `jamia-distributed` | augmentation examples | JAMIA 2018, PMC5977656 |
+| `federated-npj` | ROC detection curves, DeepLab v3 vs ILD (Fig 2) | npj Digital Medicine s41746-021-00398-4 |
+| `mri-pulse-seq` | multi-sequence fusion architecture | arXiv 1912.08775 (ar5iv) |
+| `robust-false-neg` | segmentation across lesion sizes (Fig 4) | arXiv 2001.09501 (ar5iv) |
+| `gan-dr` | real vs GAN-generated fundus grid (Fig 4) | CVPR 2024W DCAMI (PDF extract) |
+| `tvst-foundational` | segmentation→classification pipeline (Fig 3) | TVST 2023, PMC10629532 |
+| `arxiv-2111` | CvS architecture overview (Fig 1) | arXiv 2111.00042 (PDF render) |
+| `arxiv-1904` | DeepPerimeter pipeline (Fig 2) | arXiv 1904.11595 (ar5iv) |
 
-**Note on `jamia-distributed`:** PMC5977656 figures show data augmentation examples from the training pipeline. If a clearer distributed-learning performance figure is preferred, extract Figure 3 or 4 from the JAMIA paper PDF directly.
+## No-figure entries (2)
 
----
+`iovs-2024` and `iovs-2023` are ARVO Annual Meeting abstracts (Rashidisabet, Chan, Vajaranant, Yi — UIC) published in *Investigative Ophthalmology & Visual Science*. They contain only a results table, not a scientific figure, so they intentionally have no `<img>`. Titles and contributions were recovered from the ARVO abstracts (the arvojournals.org pages are behind a Cloudflare human-verification wall):
+- `iovs-2024` (id 2805488) — "Adversarial Domain Adaptation for Robust Glaucoma Classification"
+- `iovs-2023` (id 2794403) — "Out-of-Distribution Detection via Uncertainty Learning for Robust Glaucoma Prediction"
 
-## Papers requiring manual figure extraction
-
-### ct-org
-- Journal URL: https://www.nature.com/articles/s41597-020-00715-8
-- PMC URL: N/A (open access but Nature returned 303 redirect — requires browser session)
-- Target figure: **Figure 2** — CT cross-section with color-coded simultaneous segmentation overlaid for all 6 organ classes (liver, lungs, bladder, kidney, bones, brain)
-- Save as: `/public/figures/ct-org-fig.png`
-
-### federated-npj
-- Journal URL: https://www.nature.com/articles/s41746-021-00398-4
-- PMC URL: N/A (Nature returned 303 redirect — requires browser session)
-- Target figure: **Figure 2 or 3** — Performance convergence curves comparing federated vs. centralized training across 2, 4, and 6+ institutions
-- Save as: `/public/figures/federated-npj-fig.png`
-
-### periorbital-seg
-- Journal URL: https://www.sciencedirect.com/science/article/pii/S2666914525000557
-- PMC URL: N/A
-- Target figure: Main segmentation figure — overlay on periorbital photographs showing eyelid boundary annotations
-- Save as: `/public/figures/periorbital-seg-fig.png`
-
-### intraop-guidance
-- Journal URL (JAMA): https://jamanetwork.com/journals/jamaophthalmology/fullarticle/2787889
-- Journal URL (TVST): https://tvst.arvojournals.org/article.aspx?articleid=2792985
-- Target figure: Performance evaluation figure or surgical workflow diagram showing real-time AI guidance integration
-- Save as: `/public/figures/intraop-guidance-fig.png`
-
-### i-oda
-- arXiv URL: https://arxiv.org/abs/2104.02609 (no HTML version, PDF only)
-- Target figure: **Figure 1** — Dataset overview showing 12 imaging modalities, disease categories, and data volume distribution
-- Save as: `/public/figures/i-oda-fig.png`
-
-### mri-pulse-seq
-- arXiv URL: https://arxiv.org/abs/1912.08775 (no HTML version, PDF only)
-- Target figure: Architecture comparison diagram (early fusion / late fusion / parallel-branch), plus the input-level dropout training schema showing the 15 possible sequence subsets
-- Save as: `/public/figures/mri-pulse-seq-fig.png`
-
-### robust-false-neg
-- arXiv URL: https://arxiv.org/abs/2001.09501 (no HTML version, PDF only)
-- Target figure: Sensitivity/performance comparison between naive training and lopsided-bootstrap-loss training on size-censored annotation sets
-- Save as: `/public/figures/robust-false-neg-fig.png`
-
-### gan-dr
-- CVPR PDF: https://openaccess.thecvf.com/content/CVPR2024W/DCAMI/papers/Poles_Repurposing_the_Image_Generative_Potential_Exploiting_GANs_to_Grade_Diabetic_CVPRW_2024_paper.pdf
-- Target figure: Side-by-side real vs. GAN-generated retinal fundus images, plus grading performance comparison with and without synthetic augmentation
-- Save as: `/public/figures/gan-dr-fig.png`
-
-### iovs-2024
-- Journal URL: https://iovs.arvojournals.org/article.aspx?articleid=2805488
-- Note: Page returned 403 — likely requires ARVO member login or institutional access. Title and contribution also need updating in index.html once accessible.
-- Target figure: Main results figure from the paper
-- Save as: `/public/figures/iovs-2024-fig.png`
-
-### tvst-foundational
-- Journal URL: https://tvst.arvojournals.org/article.aspx?articleid=2803053
-- Note: Page returned 403 — requires institutional access. Title filled from PubMed.
-- Target figure: Main results or methods figure from the TVST 2023 generalizability paper
-- Save as: `/public/figures/tvst-foundational-fig.png`
-
-### iovs-2023
-- Journal URL: https://iovs.arvojournals.org/article.aspx?articleid=2794403
-- Note: Page returned 403 — likely requires ARVO member login. Title and contribution need updating in index.html once accessible.
-- Target figure: Main results figure from the paper
-- Save as: `/public/figures/iovs-2023-fig.png`
-
-### arxiv-2111
-- arXiv URL: https://arxiv.org/abs/2111.00042 (no HTML version, PDF only)
-- Target figure: CvS architecture diagram and/or classification accuracy comparison vs. baseline methods on small ophthalmic datasets
-- Save as: `/public/figures/arxiv-2111-fig.png`
-
-### arxiv-1904
-- arXiv URL: https://arxiv.org/abs/1904.11595 (no HTML version, PDF only)
-- Target figure: Pipeline diagram or perimeter estimation results on indoor scenes from ScanNet/FloorNet benchmarks
-- Save as: `/public/figures/arxiv-1904-fig.png`
+## Notes
+- Nature/Springer figures are served at 685px max by the CDN (`/full/` returns a broken placeholder), so `ct-org` and `federated-npj` are 685px wide.
+- `federated-npj` (npj s41746-021-00398-4) is the "missing MRI sequences / multicenter" study; its Fig 2 shows detection ROC curves (not federated-vs-centralized convergence), and the `alt` text describes it accordingly.

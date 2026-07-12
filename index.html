@@ -13,64 +13,60 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://research.darvinyi.com" />
 
+  <!-- Favicon: cyan brand dot, matches darvinyi.com -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230a0a0c'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%2338d6e0'/%3E%3C/svg%3E" />
+
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
 
   <style>
-    /* ─── Design tokens ─────────────────────────────────────────── */
+    /* ─── Design tokens (dark-only, mirrors darvinyi.com) ────────── */
     :root {
       /* backgrounds */
-      --color-background-primary:   #f8f7f5;
-      --color-background-secondary: #efede8;
-      --color-background-info:      #edf2ff;
+      --color-background-primary:   #0a0a0c;
+      --color-background-secondary: #131318;
+      --color-background-tertiary:  #191920;
+      --color-background-info:      oklch(0.80 0.13 200 / 0.12);
 
       /* text */
-      --color-text-primary:   #191916;
-      --color-text-secondary: #6b6b62;
-      --color-text-tertiary:  #9a9a90;
-      --color-text-info:      #2c58b0;
+      --color-text-primary:   #e8e8ea;
+      --color-text-secondary: #9a9aa3;
+      --color-text-tertiary:  #62626c;
+      --color-text-quaternary:#3a3a44;
+      --color-text-info:      oklch(0.80 0.13 200);
 
-      /* borders */
-      --color-border-primary:   rgba(25,25,22,0.14);
-      --color-border-secondary: rgba(25,25,22,0.09);
-      --color-border-tertiary:  rgba(25,25,22,0.06);
-      --color-border-info:      rgba(44,88,176,0.3);
+      /* accent */
+      --color-accent:      oklch(0.80 0.13 200);
+      --color-accent-deep: oklch(0.66 0.13 200);
+      --color-accent-soft: oklch(0.80 0.13 200 / 0.12);
+
+      /* borders / rules */
+      --color-border-primary:   rgba(255,255,255,0.20);
+      --color-border-secondary: rgba(255,255,255,0.12);
+      --color-border-tertiary:  rgba(255,255,255,0.06);
+      --color-border-info:      oklch(0.80 0.13 200 / 0.35);
+
+      /* fonts */
+      --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+      --sans: 'IBM Plex Sans', system-ui, sans-serif;
 
       /* radius */
       --border-radius-sm: 4px;
       --border-radius-md: 8px;
 
       /* layout */
-      --max-width:    900px;
+      --max-width:    780px;
       --page-padding: 1.5rem;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --color-background-primary:   #111110;
-        --color-background-secondary: #1c1b19;
-        --color-background-info:      #0b1526;
-
-        --color-text-primary:   #e6e5e0;
-        --color-text-secondary: #9a9a90;
-        --color-text-tertiary:  #6a6a60;
-        --color-text-info:      #7aabff;
-
-        --color-border-primary:   rgba(230,229,224,0.14);
-        --color-border-secondary: rgba(230,229,224,0.09);
-        --color-border-tertiary:  rgba(230,229,224,0.06);
-        --color-border-info:      rgba(122,171,255,0.25);
-      }
     }
 
     /* ─── Reset ─────────────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
-      font-family: 'Outfit', system-ui, sans-serif;
-      font-size: 15px;
+      font-family: var(--sans);
+      font-size: 14px;
       line-height: 1.6;
       background-color: var(--color-background-primary);
       color: var(--color-text-primary);
@@ -111,14 +107,27 @@
       gap: 1.5rem;
     }
     .nav-brand {
-      font-family: 'DM Mono', monospace;
+      font-family: var(--mono);
       font-size: 12px;
       font-weight: 500;
       letter-spacing: 0.04em;
       color: var(--color-text-secondary);
       white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
     }
-    .nav-brand a:hover { color: var(--color-text-primary); }
+    .brand-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--color-accent);
+      box-shadow: 0 0 8px 1px var(--color-accent-soft), 0 0 3px var(--color-accent);
+      flex-shrink: 0;
+    }
+    .nav-brand a { color: var(--color-text-primary); }
+    .nav-brand .brand-sub { color: var(--color-text-tertiary); }
+    .nav-brand a:hover { color: var(--color-accent); }
     .nav-links {
       display: flex;
       align-items: center;
@@ -127,13 +136,13 @@
       flex-wrap: wrap;
     }
     .nav-links a {
-      font-family: 'DM Mono', monospace;
+      font-family: var(--mono);
       font-size: 11px;
       letter-spacing: 0.05em;
       color: var(--color-text-tertiary);
       transition: color 0.15s;
     }
-    .nav-links a:hover { color: var(--color-text-primary); }
+    .nav-links a:hover { color: var(--color-accent); }
 
     /* ─── Hero ──────────────────────────────────────────────────── */
     .hero {
@@ -141,21 +150,27 @@
       border-bottom: 0.5px solid var(--color-border-secondary);
     }
     .hero h1 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 42px;
-      font-weight: 400;
-      line-height: 1.15;
+      font-family: var(--mono);
+      font-size: 40px;
+      font-weight: 500;
+      line-height: 1.18;
       letter-spacing: -0.02em;
       color: var(--color-text-primary);
-      margin-bottom: 1.25rem;
+      margin-bottom: 1.5rem;
       max-width: 640px;
     }
-    .hero h1 em {
+    .hero h1 .comment {
+      display: block;
+      font-weight: 400;
       font-style: italic;
-      color: var(--color-text-primary);
+      color: var(--color-text-tertiary);
+    }
+    .hero h1 em {
+      font-style: normal;
+      color: var(--color-accent);
     }
     .hero-bio {
-      font-family: 'Outfit', sans-serif;
+      font-family: var(--sans);
       font-size: 15px;
       line-height: 1.7;
       color: var(--color-text-secondary);
@@ -168,39 +183,38 @@
       gap: 0.5rem;
     }
     .hero-pill {
-      font-family: 'DM Mono', monospace;
+      font-family: var(--mono);
       font-size: 12px;
       letter-spacing: 0.03em;
       color: var(--color-text-secondary);
       background: var(--color-background-secondary);
-      border: 0.5px solid var(--color-border-primary);
+      border: 0.5px solid var(--color-border-secondary);
       border-radius: 100px;
       padding: 5px 13px;
       transition: color 0.15s, border-color 0.15s;
     }
     .hero-pill:hover {
-      color: var(--color-text-primary);
-      border-color: var(--color-border-primary);
+      color: var(--color-accent);
+      border-color: var(--color-border-info);
     }
 
     /* ─── Section label ─────────────────────────────────────────── */
     .section-label {
-      font-family: 'DM Mono', monospace;
-      font-size: 11px;
+      font-family: var(--mono);
+      font-size: 13px;
       font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--color-text-tertiary);
+      letter-spacing: 0.02em;
+      color: var(--color-accent);
       display: flex;
       align-items: center;
       gap: 1rem;
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.85rem;
     }
     .section-label::after {
       content: '';
       flex: 1;
       height: 0.5px;
-      background: var(--color-border-secondary);
+      background: var(--color-border-tertiary);
     }
 
     /* ─── Papers section ────────────────────────────────────────── */
@@ -215,7 +229,7 @@
       margin-bottom: 1.5rem;
     }
     .section-title {
-      font-family: 'DM Serif Display', serif;
+      font-family: var(--mono);
       font-size: 22px;
       font-weight: 400;
       letter-spacing: -0.01em;
@@ -223,7 +237,7 @@
       margin-bottom: 0.85rem;
     }
     .section-intro {
-      font-family: 'Outfit', sans-serif;
+      font-family: var(--sans);
       font-size: 14px;
       line-height: 1.7;
       color: var(--color-text-secondary);
@@ -266,7 +280,7 @@
     .accordion-header-left {}
 
     .paper-meta {
-      font-family: 'DM Mono', monospace;
+      font-family: var(--mono);
       font-size: 10px;
       letter-spacing: 0.06em;
       color: var(--color-text-tertiary);
@@ -274,7 +288,7 @@
       line-height: 1.4;
     }
     .paper-title {
-      font-family: 'Outfit', sans-serif;
+      font-family: var(--sans);
       font-size: 15px;
       font-weight: 500;
       line-height: 1.4;
@@ -282,7 +296,7 @@
       margin-bottom: 5px;
     }
     .paper-authors {
-      font-family: 'Outfit', sans-serif;
+      font-family: var(--sans);
       font-size: 12px;
       line-height: 1.5;
       color: var(--color-text-tertiary);
@@ -314,8 +328,10 @@
       flex-shrink: 0;
       margin-top: 2px;
     }
+    .accordion-header:hover .chevron { color: var(--color-accent); }
     .accordion-item.open .chevron {
       transform: rotate(90deg);
+      color: var(--color-accent);
     }
 
     /* ─── Accordion body ─────────────────────────────────────────── */
@@ -323,7 +339,7 @@
       padding: 0 0 1.5rem 0;
     }
     .contribution {
-      font-family: 'Outfit', sans-serif;
+      font-family: var(--sans);
       font-size: 14px;
       line-height: 1.75;
       color: var(--color-text-secondary);
@@ -340,36 +356,15 @@
       width: 100%;
       max-width: 720px;
       border-radius: var(--border-radius-md);
-      border: 0.5px solid var(--color-border-tertiary);
+      border: 0.5px solid var(--color-border-secondary);
+      background: #f5f5f7;
       margin-bottom: 1.25rem;
       display: block;
-    }
-    .figure-placeholder {
-      background: var(--color-background-secondary);
-      border: 0.5px dashed var(--color-border-secondary);
-      border-radius: var(--border-radius-md);
-      padding: 1.5rem;
-      text-align: center;
-      margin-bottom: 1.25rem;
-      max-width: 720px;
-    }
-    .fig-label {
-      font-family: 'DM Mono', monospace;
-      font-size: 10px;
-      color: var(--color-text-tertiary);
-      margin-bottom: 4px;
-      letter-spacing: 0.05em;
-    }
-    .fig-hint {
-      font-family: 'Outfit', sans-serif;
-      font-size: 13px;
-      font-style: italic;
-      color: var(--color-text-tertiary);
     }
 
     /* ─── Badges ─────────────────────────────────────────────────── */
     .badge {
-      font-family: 'DM Mono', monospace;
+      font-family: var(--mono);
       font-size: 10px;
       letter-spacing: 0.03em;
       background: var(--color-background-secondary);
@@ -394,7 +389,7 @@
       align-items: center;
     }
     .paper-link {
-      font-family: 'DM Mono', monospace;
+      font-family: var(--mono);
       font-size: 11px;
       letter-spacing: 0.03em;
       color: var(--color-text-secondary);
@@ -406,8 +401,8 @@
       display: inline-block;
     }
     .paper-link:hover {
-      color: var(--color-text-primary);
-      border-color: var(--color-border-primary);
+      color: var(--color-accent);
+      border-color: var(--color-border-info);
     }
     .paper-link-disabled {
       opacity: 0.4;
@@ -427,7 +422,7 @@
       flex-wrap: wrap;
     }
     .footer-copy {
-      font-family: 'DM Mono', monospace;
+      font-family: var(--mono);
       font-size: 11px;
       color: var(--color-text-tertiary);
       letter-spacing: 0.04em;
@@ -438,7 +433,7 @@
       list-style: none;
     }
     .footer-links a {
-      font-family: 'DM Mono', monospace;
+      font-family: var(--mono);
       font-size: 11px;
       color: var(--color-text-tertiary);
       letter-spacing: 0.04em;
@@ -448,7 +443,14 @@
 
     /* ─── Responsive ─────────────────────────────────────────────── */
     @media (max-width: 640px) {
+      .site-nav .wrapper {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.6rem;
+      }
+      .nav-links { gap: 1.1rem; }
       .hero h1 { font-size: 30px; }
+      .hero { padding: 3.5rem 0 3rem; }
       .accordion-header { grid-template-columns: 1fr; }
       .accordion-header-right {
         flex-direction: row;
@@ -470,8 +472,9 @@
   <nav class="site-nav" aria-label="Site navigation">
     <div class="wrapper">
       <div class="nav-brand">
+        <span class="brand-dot" aria-hidden="true"></span>
         <a href="https://darvinyi.com">darvinyi.com</a>
-        &nbsp;/&nbsp;research
+        <span class="brand-sub">&nbsp;/&nbsp;research</span>
       </div>
       <ul class="nav-links" role="list">
         <li><a href="#part-i">Datasets &amp; Benchmarks</a></li>
@@ -488,7 +491,7 @@
     ════════════════════════════════════════════════════════════ -->
     <section class="hero" aria-label="Introduction">
       <div class="wrapper">
-        <h1>research that <em>ships</em> and research that <em>scales</em>.</h1>
+        <h1>research that <em>ships</em>,<span class="comment">/* and research that <em>scales</em> */</span></h1>
         <p class="hero-bio">
           My work spans two threads: building the datasets and benchmarks that make rigorous AI evaluation possible, and developing the core AIML methods that push the frontier. Below is a curated selection across both.
         </p>
@@ -514,7 +517,7 @@
     <section class="papers-section" id="part-i" aria-label="Part I: Datasets, Benchmarks and Evaluations">
       <div class="wrapper">
         <div class="section-header">
-          <p class="section-label">Part I</p>
+          <p class="section-label"># datasets_benchmarks_evals</p>
           <h2 class="section-title">Datasets, Benchmarks &amp; Evaluations</h2>
           <p class="section-intro">
             Before you can evaluate AI in the real world, you need the right data. These papers each introduce a new dataset, challenge, or evaluation framework — most have become standard references in their fields.
@@ -548,9 +551,9 @@
                 Most AI benchmarks are synthetic, static, and detached from economic reality. <strong>UpBench</strong> changes that. It grounds agentic AI evaluation in <strong>322 real, economically verified jobs</strong> from the Upwork labor marketplace — each tied to an actual client transaction with real financial outcomes. Expert freelancers decompose jobs into rubric criteria and evaluate AI submissions with per-criterion feedback, enabling fine-grained analysis far beyond binary pass/fail. The benchmark refreshes dynamically to mirror how real work evolves.
               </p>
               <!-- FIGURE: upbench -->
-              <img src="https://arxiv.org/html/2511.12306/figures/headline.png"
+              <img src="/figures/upbench-fig.png"
                    class="paper-figure"
-                   alt="Project completion rate comparing AI-only vs. human-in-the-loop performance across UpBench tasks"
+                   alt="UpBench bar chart — task completion rate for Claude Sonnet 4, Gemini 2.5 Pro, and GPT-5 across agent-only, first human turn, and second human turn conditions"
                    loading="lazy" />
               <div class="paper-links">
                 <a class="paper-link" href="https://arxiv.org/abs/2511.12306" target="_blank" rel="noopener">arxiv →</a>
@@ -586,7 +589,7 @@
                 An international crowdsourced challenge — <strong>126 teams from 44 countries</strong> — evaluated on <strong>144,231 mammograms</strong> from 85,580 US women and independently validated on 166,578 Swedish mammograms. Finding: no single AI algorithm outperformed community radiologist benchmarks, but <strong>human–AI combinations</strong> showed measurable gains. A landmark result that shaped subsequent AI-in-mammography policy worldwide.
               </p>
               <!-- FIGURE: mammogram-dream -->
-              <img src="https://cdn.ncbi.nlm.nih.gov/pmc/blobs/bfb3/7052735/d9ba5ec55bdf/jamanetwopen-e200265-g003.jpg"
+              <img src="/figures/mammogram-dream-fig.jpg"
                    class="paper-figure"
                    alt="ROC curves comparing top AI algorithms vs US and Swedish radiologist benchmarks across Challenge 1 and Challenge 2"
                    loading="lazy" />
@@ -623,7 +626,7 @@
                 156 whole-brain MRI studies across <strong>4 sequences</strong>. The companion dataset <strong>BrainMetShare</strong> was released through Stanford AIMI and has become the standard benchmark for brain metastasis segmentation — cited by dozens of follow-on papers. <strong>AUC 0.98</strong> overall, 0.99 for patients with 1–3 metastases, demonstrating strong performance across all lesion burden categories.
               </p>
               <!-- FIGURE: brainmetshare -->
-              <img src="https://www.frontiersin.org/files/Articles/1056068/xml-images/fninf-16-1056068-g0006.webp"
+              <img src="/figures/brainmetshare-fig.webp"
                    class="paper-figure"
                    alt="Representative brain metastasis segmentation examples showing ground truth annotations and model probability maps across a challenging 153-metastasis case"
                    loading="lazy" />
@@ -661,10 +664,10 @@
                 140 diverse CT scans across <strong>six organ classes</strong> (liver, lungs, bladder, kidney, bones, brain). Annotation accelerated via unsupervised morphological segmentation and 3D Fourier transforms. A deep network trained on this data segments all organs in <strong>4.3 seconds</strong>. Released through TCIA — a standard multi-organ benchmark used across dozens of subsequent papers.
               </p>
               <!-- FIGURE: ct-org -->
-              <div class="figure-placeholder">
-                <p class="fig-label">figure — see FIGURES_NEEDED.md</p>
-                <p class="fig-hint">CT cross-section with color-coded simultaneous segmentation of all 6 organ classes overlaid (liver, lungs, bladder, kidney, bones, brain).</p>
-              </div>
+              <img src="/figures/ct-org-fig.png"
+                   class="paper-figure"
+                   alt="CT viewer showing axial, sagittal, and coronal cross-sections plus a 3D volume render, with multi-organ and skeletal segmentation overlaid in pink"
+                   loading="lazy" />
               <div class="paper-links">
                 <a class="paper-link" href="https://www.nature.com/articles/s41597-020-00715-8" target="_blank" rel="noopener">nature scientific data →</a>
               </div>
@@ -696,7 +699,7 @@
                 Trained on <strong>216,431 frontal chest X-rays</strong> from Stanford (1998–2012). Key finding: CNN alone achieves AUC 0.96, but combining CNN output with physician judgment achieves <strong>AUC 0.98</strong> — outperforming either alone. Also maps the effect of training set size, architecture choice, and initialization strategy, providing a practical blueprint for clinical deployment decisions.
               </p>
               <!-- FIGURE: chest-radiograph -->
-              <img src="https://cdn.ncbi.nlm.nih.gov/pmc/blobs/0fd1/6358056/776c2c2dd976/radiol.2018181422.fig2.jpg"
+              <img src="/figures/chest-radiograph-fig.jpg"
                    class="paper-figure"
                    alt="Effect of initialization strategy and evaluation standard on ROC curves for different chest radiograph training set sizes"
                    loading="lazy" />
@@ -731,10 +734,10 @@
                 An annotated dataset for <strong>periorbital segmentation</strong> — enabling AI analysis of eyelid and periocular anatomy for ophthalmic surgical planning and disease monitoring. Developed at the UIC Ai-O Center as a resource for the ophthalmic AI community.
               </p>
               <!-- FIGURE: periorbital-seg -->
-              <div class="figure-placeholder">
-                <p class="fig-label">figure — see FIGURES_NEEDED.md</p>
-                <p class="fig-hint">Segmentation overlay on periorbital photographs showing eyelid boundary annotations across patients.</p>
-              </div>
+              <img src="/figures/periorbital-seg-fig.png"
+                   class="paper-figure"
+                   alt="Grid of periorbital photographs from the CFD and Celeb source datasets with multi-class color-coded segmentation overlays: eyebrows, upper eyelid, sclera, iris, and caruncle"
+                   loading="lazy" />
               <div class="paper-links">
                 <a class="paper-link" href="https://www.sciencedirect.com/science/article/pii/S2666914525000557" target="_blank" rel="noopener">paper →</a>
               </div>
@@ -765,10 +768,10 @@
                 Evaluation of <strong>AI-guided tools for intraoperative decision support</strong> in ophthalmology — assessing how computer vision assistance integrates into surgical workflow and supports real-time clinical decisions during eye surgery. Covers both phacoemulsification cataract surgery (JAMA Ophthalmology) and vitreoretinal procedures (TVST).
               </p>
               <!-- FIGURE: intraop-guidance -->
-              <div class="figure-placeholder">
-                <p class="fig-label">figure — see FIGURES_NEEDED.md</p>
-                <p class="fig-hint">Performance evaluation figure or surgical workflow diagram showing AI tool integration and real-time guidance metrics.</p>
-              </div>
+              <img src="/figures/intraop-guidance-fig.png"
+                   class="paper-figure"
+                   alt="AI intraoperative-guidance workflow for phacoemulsification cataract surgery: read a stereo frame from the OR microscope, run CNN detection, identify the surgical phase, and render phase-specific guidance overlays"
+                   loading="lazy" />
               <div class="paper-links">
                 <a class="paper-link" href="https://jamanetwork.com/journals/jamaophthalmology/fullarticle/2787889" target="_blank" rel="noopener">jama ophthalmology →</a>
                 <a class="paper-link" href="https://tvst.arvojournals.org/article.aspx?articleid=2792985" target="_blank" rel="noopener">tvst →</a>
@@ -801,10 +804,10 @@
                 A large-scale structured ophthalmic data atlas aggregating <strong>12 imaging modalities</strong> with <strong>3.6M+ images of 33,876 individuals</strong> — retinal photography, OCT, visual fields, and more — collected over 12 years at UIC. Supports AI research across ophthalmic disease areas. One of the largest annotated ophthalmic datasets assembled for machine learning research.
               </p>
               <!-- FIGURE: i-oda -->
-              <div class="figure-placeholder">
-                <p class="fig-label">figure — see FIGURES_NEEDED.md</p>
-                <p class="fig-hint">Dataset overview figure showing imaging modalities, disease categories, and data volume distribution across 12 modalities and 12 years of collection.</p>
-              </div>
+              <img src="/figures/i-oda-fig.png"
+                   class="paper-figure"
+                   alt="Sample images from six major imaging modalities in the I-ODA dataset: B-scan, OCT, OCT report, corneal topography, fundus photography, and Humphrey visual field"
+                   loading="lazy" />
               <div class="paper-links">
                 <a class="paper-link" href="https://arxiv.org/abs/2104.02609" target="_blank" rel="noopener">arxiv →</a>
               </div>
@@ -836,9 +839,9 @@
                 Establishes that sharing <strong>model weights (not patient data)</strong> across institutions trains collaborative deep learning models with performance comparable to centralized training — while fully preserving patient privacy. One of the foundational results in federated medical AI, cited across hundreds of subsequent papers.
               </p>
               <!-- FIGURE: jamia-distributed -->
-              <img src="https://cdn.ncbi.nlm.nih.gov/pmc/blobs/6912/5977656/30ec5cd8399c/2730723f1.jpg"
+              <img src="/figures/jamia-distributed-fig.jpg"
                    class="paper-figure"
-                   alt="Example training data and augmentation strategies used in distributed multi-institutional deep learning"
+                   alt="Example training data and augmentation strategies (original, rotation, scaling, shearing) used in distributed multi-institutional deep learning"
                    loading="lazy" />
               <div class="paper-links">
                 <a class="paper-link" href="https://academic.oup.com/jamia/article/25/8/945/4956468" target="_blank" rel="noopener">jamia →</a>
@@ -857,7 +860,7 @@
     <section class="papers-section" id="part-ii" aria-label="Part II: Foundational AIML Contributions">
       <div class="wrapper">
         <div class="section-header">
-          <p class="section-label">Part II</p>
+          <p class="section-label"># foundational_aiml</p>
           <h2 class="section-title">Foundational AIML Contributions</h2>
           <p class="section-intro">
             Core methods work: pulse sequence integration for MRI, federated learning without data sharing, GAN-based augmentation, robust training under noisy labels, and distributed deep learning for multi-institutional AI.
@@ -890,10 +893,10 @@
                 Full demonstration that distributing <strong>model weights across institutions</strong> — without any patient data transfer — achieves performance near centralized training on brain tumor segmentation. Foundational result for <strong>privacy-preserving medical AI</strong> and a key reference in the federated learning literature.
               </p>
               <!-- FIGURE: federated-npj -->
-              <div class="figure-placeholder">
-                <p class="fig-label">figure — see FIGURES_NEEDED.md</p>
-                <p class="fig-hint">Performance convergence curves comparing federated vs. centralized training across 2, 4, and 6+ institutions.</p>
-              </div>
+              <img src="/figures/federated-npj-fig.png"
+                   class="paper-figure"
+                   alt="ROC detection-accuracy curves from the multi-institutional npj study, comparing a DeepLab V3 model and an input-level-dropout (ILD) model, both reaching AUC 0.989"
+                   loading="lazy" />
               <div class="paper-links">
                 <a class="paper-link" href="https://www.nature.com/articles/s41746-021-00398-4" target="_blank" rel="noopener">npj digital medicine →</a>
               </div>
@@ -925,10 +928,10 @@
                 Systematically evaluates how to integrate multiple MRI pulse sequences in deep learning architectures: early fusion, late fusion, and parallel-branch with weight sharing. Introduces <strong>input-level dropout (ILD)</strong> — trains on all 15 possible subsets of 4 input sequences simultaneously — making the model robust to any missing sequence at inference time, a critical property for clinical deployment.
               </p>
               <!-- FIGURE: mri-pulse-seq -->
-              <div class="figure-placeholder">
-                <p class="fig-label">figure — see FIGURES_NEEDED.md</p>
-                <p class="fig-hint">Architecture diagram comparing early fusion, late fusion, and parallel-branch strategies side by side, plus the input-level dropout training schema showing the 15 possible sequence subsets.</p>
-              </div>
+              <img src="/figures/mri-pulse-seq-fig.png"
+                   class="paper-figure"
+                   alt="Multi-sequence fusion architecture: four input MRI pulse sequences (BRAVO, CUBE pre-contrast, CUBE post-contrast, FLAIR) feed parallel weight-shared branches into an ASPP-style decoder producing a brain-metastasis probability map"
+                   loading="lazy" />
               <div class="paper-links">
                 <a class="paper-link" href="https://arxiv.org/abs/1912.08775" target="_blank" rel="noopener">arxiv →</a>
                 <a class="paper-link" href="https://www.nature.com/articles/s41746-021-00398-4" target="_blank" rel="noopener">npj digital medicine →</a>
@@ -961,10 +964,10 @@
                 Radiologist annotations systematically miss small metastases — training naively on such data teaches the model the same blind spots. Proposes <strong>modified loss functions</strong> and annotation-uncertainty weighting for robust training under systematic false negative noise. Lopsided bootstrap loss retains sensitivity at <strong>97% of baseline</strong> under 50% random censoring, and improves performance from 17% to 88% under size-based censoring.
               </p>
               <!-- FIGURE: robust-false-neg -->
-              <div class="figure-placeholder">
-                <p class="fig-label">figure — see FIGURES_NEEDED.md</p>
-                <p class="fig-hint">Comparison of naive vs. robust training segmentation outputs on cases with incomplete annotations, showing improved small-lesion recall.</p>
-              </div>
+              <img src="/figures/robust-false-neg-fig.png"
+                   class="paper-figure"
+                   alt="Segmentation results from the lopsided-bootstrap robust network across large (52mm), medium (26mm), and small (2.4mm) metastases, with green ground-truth and magenta prediction contours on brain MRI slices"
+                   loading="lazy" />
               <div class="paper-links">
                 <a class="paper-link" href="https://arxiv.org/abs/2001.09501" target="_blank" rel="noopener">arxiv →</a>
               </div>
@@ -995,10 +998,10 @@
                 Explores whether <strong>GAN-generated synthetic retinal images</strong> can augment training data for diabetic retinopathy grading — and under what conditions synthetic augmentation helps vs. hurts model performance. Presented at the <strong>CVPR 2024 DCAMI workshop</strong>, bridging generative AI methods with clinical vision tasks.
               </p>
               <!-- FIGURE: gan-dr -->
-              <div class="figure-placeholder">
-                <p class="fig-label">figure — see FIGURES_NEEDED.md</p>
-                <p class="fig-hint">Side-by-side real vs. GAN-generated retinal fundus images, plus grading performance comparison with and without synthetic augmentation.</p>
-              </div>
+              <img src="/figures/gan-dr-fig.png"
+                   class="paper-figure"
+                   alt="Grid of retinal fundus photographs comparing GAN-generated (700k-epoch) synthetic images against real diabetic-retinopathy images, illustrating the realism of the synthetic fundus images"
+                   loading="lazy" />
               <div class="paper-links">
                 <a class="paper-link" href="https://openaccess.thecvf.com/content/CVPR2024W/DCAMI/papers/Poles_Repurposing_the_Image_Generative_Potential_Exploiting_GANs_to_Grade_Diabetic_CVPRW_2024_paper.pdf" target="_blank" rel="noopener">cvpr paper →</a>
               </div>
@@ -1011,9 +1014,9 @@
                     aria-expanded="false"
                     aria-controls="body-iovs-2024">
               <div class="accordion-header-left">
-                <p class="paper-meta">ophthalmology · investigative ophthalmology &amp; visual science · 2024</p>
-                <p class="paper-title">[Title — see iovs.arvojournals.org/article.aspx?articleid=2805488]</p>
-                <p class="paper-authors"><strong>D. Yi</strong> et al. — UIC Ai-O Center</p>
+                <p class="paper-meta">ophthalmology · arvo meeting abstract (iovs) · 2024</p>
+                <p class="paper-title">Adversarial Domain Adaptation for Robust Glaucoma Classification</p>
+                <p class="paper-authors">H. Rashidisabet, R.V.P. Chan, T.S. Vajaranant, <strong>D. Yi</strong> — UIC Ai-O Center</p>
               </div>
               <div class="accordion-header-right">
                 <div class="badge-stack">
@@ -1026,13 +1029,8 @@
             </button>
             <div class="accordion-body" id="body-iovs-2024" hidden>
               <p class="contribution">
-                [Contribution — fetch abstract from <a class="paper-link" style="display:inline" href="https://iovs.arvojournals.org/article.aspx?articleid=2805488" target="_blank" rel="noopener">iovs.arvojournals.org/article.aspx?articleid=2805488</a> and update this section.]
+                Deep-learning glaucoma classifiers perform well in-distribution but lose robustness under <strong>domain shift</strong> — e.g. fundus images from a different hospital or population. This work adds an <strong>adversarial domain-adaptation</strong> branch that strips domain-specific signal so the network learns domain-invariant features, training jointly on glaucoma classification and domain discrimination. Across LAG, REFUGE, and University of Illinois Chicago fundus sets, it improves cross-domain accuracy by roughly <strong>6–12 points</strong> over a source-only ResNet-50 baseline. Presented as an ARVO Annual Meeting abstract in <em>Investigative Ophthalmology &amp; Visual Science</em>.
               </p>
-              <!-- FIGURE: iovs-2024 -->
-              <div class="figure-placeholder">
-                <p class="fig-label">figure — see FIGURES_NEEDED.md</p>
-                <p class="fig-hint">Main results figure from the IOVS 2024 paper (articleid=2805488).</p>
-              </div>
               <div class="paper-links">
                 <a class="paper-link" href="https://iovs.arvojournals.org/article.aspx?articleid=2805488" target="_blank" rel="noopener">iovs →</a>
               </div>
@@ -1063,10 +1061,10 @@
                 Systematic evaluation of how AI models trained in one ophthalmic setting perform when deployed on real-world clinical data from a different institution or population. Tests <strong>generalizability gaps</strong> — the common failure mode where models degrade between development and clinical deployment — and proposes strategies to close them.
               </p>
               <!-- FIGURE: tvst-foundational -->
-              <div class="figure-placeholder">
-                <p class="fig-label">figure — see FIGURES_NEEDED.md</p>
-                <p class="fig-hint">Main results or methods figure from the TVST 2023 generalizability paper (articleid=2803053).</p>
-              </div>
+              <img src="/figures/tvst-foundational-fig.png"
+                   class="paper-figure"
+                   alt="Pipeline flowchart: fundus photos pass through a DeepLab v3 segmentation network to localize and crop the optic disc, which a downstream classification network then labels as glaucoma or non-glaucoma"
+                   loading="lazy" />
               <div class="paper-links">
                 <a class="paper-link" href="https://tvst.arvojournals.org/article.aspx?articleid=2803053" target="_blank" rel="noopener">tvst →</a>
               </div>
@@ -1079,9 +1077,9 @@
                     aria-expanded="false"
                     aria-controls="body-iovs-2023">
               <div class="accordion-header-left">
-                <p class="paper-meta">ophthalmology · investigative ophthalmology &amp; visual science · 2023</p>
-                <p class="paper-title">[Title — see iovs.arvojournals.org/article.aspx?articleid=2794403]</p>
-                <p class="paper-authors"><strong>D. Yi</strong> et al. — UIC Ai-O Center</p>
+                <p class="paper-meta">ophthalmology · arvo meeting abstract (iovs) · 2023</p>
+                <p class="paper-title">Out-of-Distribution Detection via Uncertainty Learning for Robust Glaucoma Prediction</p>
+                <p class="paper-authors">H. Rashidisabet, R.V.P. Chan, T.S. Vajaranant, <strong>D. Yi</strong> — UIC Ai-O Center</p>
               </div>
               <div class="accordion-header-right">
                 <div class="badge-stack">
@@ -1094,13 +1092,8 @@
             </button>
             <div class="accordion-body" id="body-iovs-2023" hidden>
               <p class="contribution">
-                [Contribution — fetch abstract from <a class="paper-link" style="display:inline" href="https://iovs.arvojournals.org/article.aspx?articleid=2794403" target="_blank" rel="noopener">iovs.arvojournals.org/article.aspx?articleid=2794403</a> and update this section.]
+                Standard classifiers are over-confident on inputs unlike anything seen in training — a real risk for clinical deployment. This work adds an <strong>uncertainty-learning "Dirichlet" head</strong> onto a CNN feature extractor that flags unreliable, out-of-distribution samples while still classifying fundus images as glaucoma or non-glaucoma. Trained on Illinois Eye &amp; Ear Infirmary fundus images and stress-tested against REFUGE, LAG, and non-medical datasets, it improves <strong>OOD detection</strong> over a softmax baseline while keeping competitive glaucoma AUC. Presented as an ARVO Annual Meeting abstract in <em>Investigative Ophthalmology &amp; Visual Science</em>.
               </p>
-              <!-- FIGURE: iovs-2023 -->
-              <div class="figure-placeholder">
-                <p class="fig-label">figure — see FIGURES_NEEDED.md</p>
-                <p class="fig-hint">Main results figure from the IOVS 2023 paper (articleid=2794403).</p>
-              </div>
               <div class="paper-links">
                 <a class="paper-link" href="https://iovs.arvojournals.org/article.aspx?articleid=2794403" target="_blank" rel="noopener">iovs →</a>
               </div>
@@ -1131,10 +1124,10 @@
                 Proposes <strong>CvS</strong>, a classifier for small datasets that derives classification labels from predicting segmentation maps. Uses <strong>label propagation</strong> to create fully segmented datasets from minimal manual annotation, then trains classifiers via the segmentation pathway — demonstrating improved classification accuracy when labeled training examples are scarce, directly applicable to ophthalmic imaging tasks.
               </p>
               <!-- FIGURE: arxiv-2111 -->
-              <div class="figure-placeholder">
-                <p class="fig-label">figure — see FIGURES_NEEDED.md</p>
-                <p class="fig-hint">CvS architecture diagram and/or classification accuracy comparison vs. baseline methods on small ophthalmic datasets.</p>
-              </div>
+              <img src="/figures/arxiv-2111-fig.png"
+                   class="paper-figure"
+                   alt="CvS architecture overview, contrasting the classification-via-segmentation network with a standard classifier and a multi-task network, illustrated on an MNIST digit example"
+                   loading="lazy" />
               <div class="paper-links">
                 <a class="paper-link" href="https://arxiv.org/abs/2111.00042" target="_blank" rel="noopener">arxiv →</a>
               </div>
@@ -1165,10 +1158,10 @@
                 A deep learning pipeline for extracting <strong>indoor room perimeters</strong> from RGB image sequences with known camera poses. Combines robust deep methods for depth estimation and wall segmentation to create boundary point clouds, then applies <strong>unsupervised clustering</strong> to fit wall planes — robust perimeter extraction across diverse room layouts, with applications in augmented reality and robotics. Benchmarked on ScanNet and FloorNet datasets.
               </p>
               <!-- FIGURE: arxiv-1904 -->
-              <div class="figure-placeholder">
-                <p class="fig-label">figure — see FIGURES_NEEDED.md</p>
-                <p class="fig-hint">Pipeline diagram or perimeter estimation results on indoor scenes from ScanNet/FloorNet benchmarks.</p>
-              </div>
+              <img src="/figures/arxiv-1904-fig.png"
+                   class="paper-figure"
+                   alt="DeepPerimeter pipeline: posed monocular video flows through MVDepthNet depth estimation and PSPNet wall segmentation into a wall point cloud, then ClusterNet clustering and final room-perimeter estimation"
+                   loading="lazy" />
               <div class="paper-links">
                 <a class="paper-link" href="https://arxiv.org/abs/1904.11595" target="_blank" rel="noopener">arxiv →</a>
               </div>

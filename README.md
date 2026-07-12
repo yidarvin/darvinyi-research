@@ -21,19 +21,13 @@ npx serve .
    - **Value:** `cname.vercel-dns.com`
 6. Pushing to `main` auto-deploys via Vercel webhook
 
-## Add figures
+## Figures
 
-See [FIGURES_NEEDED.md](./FIGURES_NEEDED.md) for which papers still need figures.
+All figures are stored locally in `figures/` at the repo root and referenced as `/figures/{slug}-fig.png`. No external image hosts are used. See [FIGURES_NEEDED.md](./FIGURES_NEEDED.md) for the source of each figure.
 
-Quick process:
-1. Save image to `/public/figures/{slug}-fig.png`
-2. In `index.html`, find `<!-- FIGURE: {slug} -->`
-3. Replace the `.figure-placeholder` div with `<img src="/figures/{slug}-fig.png" class="paper-figure" alt="...">`
+To add or replace a figure:
+1. Save the image to `figures/{slug}-fig.png` (repo root — **not** `public/`; this is a no-build static deploy, so the path on disk is the served path).
+2. In `index.html`, find `<!-- FIGURE: {slug} -->`.
+3. Point the `<img class="paper-figure">` at `/figures/{slug}-fig.png` and update its `alt` text.
 
-## Update IOVS/TVST placeholder entries
-
-Three papers returned 403 on fetch. Once you have institutional access:
-- `iovs-2024` → https://iovs.arvojournals.org/article.aspx?articleid=2805488
-- `iovs-2023` → https://iovs.arvojournals.org/article.aspx?articleid=2794403
-
-In `index.html`, find the accordion items with slugs `paper-iovs-2024` and `paper-iovs-2023` and fill in the title and contribution text.
+The two `iovs-*` entries are ARVO Annual Meeting abstracts with no scientific figure (results table only), so they intentionally have no `<img>`.
